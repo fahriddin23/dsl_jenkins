@@ -3,17 +3,16 @@ pipeline{
     stages{
         stage("Run Command"){
             steps{
-                sh ''' 
+                sh '''
                 set +xe
                 echo Hello
-                ech error
+                ech  Error
                 sudo yum install httpd wget unzip -y
-
                 ping -c 4 google.com
                 '''
             }
         }
-          stage("Download Terraform"){
+        stage("Download Terraform"){
             steps{
                 ws("tmp/"){
                     script {
@@ -26,17 +25,18 @@ pipeline{
                             sh "wget https://releases.hashicorp.com/terraform/0.12.7/terraform_0.12.7_linux_amd64.zip"
                             sh "unzip -o terraform_0.12.7_linux_amd64.zip"
                             sh "sudo mv terraform /bin"
+                            sh "terraform version"
                         }
                     }
                 }
             }
-            stage("Write to a file"){
-                steps{
-                    ws("tmp/"){
-                        writeFile text: "Test", file "TestFile"
-                    }
+        }
+        stage("Write to a file"){
+            steps{
+                ws("tmp/"){
+                    writeFile text: "Test", file: "TestFile"
                 }
             }
         }
-    }   
+    }
 }
