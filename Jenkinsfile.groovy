@@ -7,7 +7,8 @@ pipeline{
                 set +xe
                 echo Hello
                 ech error
-                sudo yum install httpd wget -y
+                sudo yum install httpd wget unzip -y
+
                 ping -c 4 google.com
                 '''
             }
